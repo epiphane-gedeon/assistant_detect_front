@@ -1,0 +1,13 @@
+.report-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #146C53;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 999;
+}

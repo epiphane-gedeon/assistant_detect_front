@@ -1,0 +1,34 @@
+<!-- <div class="chatbox" *ngIf="visible">
+  <div class="header">
+    <span>Assistant</span>
+    <button class="close-btn" (click)="close()">×</button>
+  </div>
+  <div class="messages">
+    <div class="user-area"><div class="msg_container"><div class="user-msg">Je n’arrive pas à créer un compte</div><span class="msg_time time_send">22:00</span></div></div>
+    <div class="msg_container"><div class="bot-msg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, enim qui modi voluptatibus expedita, mollitia quam, accusantium eius deleniti similique dolore. Nobis hic, odio voluptate officiis molestiae qui distinctio optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, enim qui modi voluptatibus expedita, mollitia quam, accusantium eius deleniti similique dolore. Nobis hic, odio voluptate officiis molestiae qui distinctio optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, enim qui modi voluptatibus expedita, mollitia quam, accusantium eius deleniti similique dolore. Nobis hic, odio voluptate officiis molestiae qui distinctio optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, enim qui modi voluptatibus expedita, mollitia quam, accusantium eius deleniti similique dolore. Nobis hic, odio voluptate officiis molestiae qui distinctio optio.</div><span class="msg_time">22:00</span></div>
+  </div>
+  <div class="input-zone">
+    <input type="text" placeholder="Tapez votre message ici">
+    <button class="send-btn">➤</button>
+  </div>
+</div> -->
+
+<!-- src/app/components/chatbox/chatbox.component.html -->
+<div class="chatbox" *ngIf="visible">
+  <div class="header">
+    <span>Assistant</span>
+    <button class="close-btn" (click)="close()">×</button>
+  </div>
+
+  <div class="messages">
+    <div *ngFor="let msg of messages" [ngClass]="msg.from === 'user' ? 'user-msg' : 'bot-msg'">
+      <div *ngIf="msg.from === 'user'">{{ msg.text }}</div>
+      <div *ngIf="msg.from === 'bot'" [innerHTML]="msg.text | markdown"></div>
+    </div>
+  </div>
+
+  <div class="input-zone">
+    <input type="text" [(ngModel)]="userInput" placeholder="Tapez votre message ici" (keydown.enter)="send()">
+    <button class="send-btn" (click)="send()">➤</button>
+  </div>
+</div>
