@@ -1,0 +1,103 @@
+<!-- Overlay -->
+<div class="form-overlay" *ngIf="formConfig">
+
+  <!-- Form Container -->
+  <div class="form-container">
+
+    <!-- Close Button -->
+    <button *ngIf="formConfig.showCloseButton" class="close-button" (click)="closeFormPopup()">
+      ×
+    </button>
+
+    <!-- Title -->
+    <h2 class="form-title">{{ formConfig.title }}</h2>
+
+    <!-- Form -->
+    <form [formGroup]="formGroup!" (ngSubmit)="onSubmit()" *ngIf="formGroup" class="popup-form">
+
+      <!-- Groupes de champs dynamiques -->
+      <div *ngFor="let group of fieldGroups">
+
+        <!-- Groupe réel (non-default) - Champs côte à côte dans une row -->
+        <div *ngIf="group.groupName !== 'default'" class="form-group">
+          <div class="row">
+            <div *ngFor="let field of group.fields" class="form-field">
+
+              <!-- Input Text/Email/Tel -->
+              <input [type]="field.type" [formControlName]="field.key" [placeholder]="field.placeholder || field.label"
+                class="form-input" [class.error]="getFieldError(field.key)">
+
+              <!-- Error Message -->
+              <div *ngIf="getFieldError(field.key)" class="error-message">
+                {{ getFieldError(field.key) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Groupe default - Champ seul en pleine largeur -->
+        <div *ngIf="group.groupName === 'default'" class="form-group">
+          <div class="form-field full-width" *ngFor="let field of group.fields">
+
+            <!-- Input Text/Email/Tel -->
+            <div *ngIf="field.type === 'text' || field.type === 'email' || field.type === 'tel'">
+              <input [type]="field.type" [formControlName]="field.key" [placeholder]="field.placeholder || field.label"
+                class="form-input" [class.error]="getFieldError(field.key)">
+
+              <!-- Error Message -->
+              <div *ngIf="getFieldError(field.key)" class="error-message">
+                {{ getFieldError(field.key) }}
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div *ngIf="field.type === 'textarea'">
+              <textarea [formControlName]="field.key" [placeholder]="field.placeholder || field.label"
+                [rows]="field.rows || 4" class="form-textarea" [class.error]="getFieldError(field.key)">
+              </textarea>
+
+              <!-- Error Message -->
+              <div *ngIf="getFieldError(field.key)" class="error-message">
+                {{ getFieldError(field.key) }}
+              </div>
+            </div>
+
+            <!-- Select -->
+            <div *ngIf="field.type === 'select'">
+              <select [formControlName]="field.key" class="form-select" [class.error]="getFieldError(field.key)">
+                <option value="">{{ field.placeholder || field.label }}</option>
+                <option *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+
+              <!-- Error Message -->
+              <div *ngIf="getFieldError(field.key)" class="error-message">
+                {{ getFieldError(field.key) }}
+              </div>
+            </div>
+
+            <!-- Checkbox -->
+            <div *ngIf="field.type === 'checkbox'" class="checkbox-field">
+              <input type="checkbox" [formControlName]="field.key" [id]="field.key" class="form-checkbox">
+              <label [for]="field.key" class="checkbox-label">
+                {{ field.label }}
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-buttons">
+        <button type="submit" class="form-btn submit-only" [disabled]="!formGroup.valid">
+          {{ formConfig.submitText || 'Valider' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

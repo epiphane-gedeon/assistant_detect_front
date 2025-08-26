@@ -7,11 +7,23 @@
   border: 1px solid #146C53;
   border-radius: 4px;
   max-width: 451px;
-  /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
-  /* display: flex; */
-  /* flex-direction: column; */
   z-index: 1000;
-  /* gap: 10px; */
+  /* Animation d'apparition pour desktop */
+  animation: slideInUp 0.3s ease-out;
+  transform-origin: bottom right;
+}
+
+/* Animation d'apparition depuis le bas à droite */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .header {
@@ -28,6 +40,14 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.close-btn:hover {
+  background-color: rgba(20, 108, 83, 0.1);
+  transform: scale(1.1);
 }
 
 .messages {
@@ -38,24 +58,43 @@
   font-size: 14px;
 }
 
-.user-area {
+.message-container {
   display: flex;
+  margin-bottom: 10px;
+  /* Animation pour les nouveaux messages */
+  animation: fadeInMessage 0.3s ease-out;
+}
+
+/* Animation pour les messages */
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-container.user {
   justify-content: flex-end;
 }
-.msg_container{
-  display: flex;
-  flex-direction: column;
+
+.message-container.bot {
+  justify-content: flex-start;
 }
+
 .user-msg {
   background-color: #146C53;
   padding: 15px;
   color: white;
   margin-bottom: 8px;
-  border-radius: 4px;
-  text-align: center;
-  max-width: 200px;
-  position: relative;
-  display: flex;
+  border-radius: 15px 15px 5px 15px;
+  text-align: left;
+  max-width: 70%;
+  word-wrap: break-word;
 
   /* margin-top: auto;
 	margin-bottom: auto;
@@ -65,18 +104,26 @@
 	padding: 10px;
 	position: relative; */
 }
-.msg_time{
+
+.msg_time {
   position: relative;
-	font-size: 10px;
+  font-size: 10px;
 }
-.time_send{
+
+.time_send {
   display: flex;
   justify-content: flex-end;
 }
 
 .bot-msg {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 10px;
+  border-radius: 15px 15px 15px 5px;
   text-align: left;
   margin-bottom: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
 }
 
 .input-zone {
@@ -95,7 +142,12 @@
   outline: none;
   border: solid 1px #146C53;
   border-radius: 4px;
-  /* width: 40px; */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-zone input:focus {
+  border-color: #0f5a44;
+  box-shadow: 0 0 0 2px rgba(20, 108, 83, 0.2);
 }
 
 .send-btn {
@@ -105,4 +157,224 @@
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.send-btn:hover {
+  background-color: #0f5a44;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(20, 108, 83, 0.3);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+}
+
+/* Bouton pour joindre une image */
+.image-btn {
+  background: transparent;
+  color: #146C53;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-btn:hover {
+  background: rgba(20, 108, 83, 0.1);
+  color: #0f5a44;
+  transform: translateY(-1px);
+}
+
+.image-btn:active {
+  transform: translateY(0);
+  background: rgba(20, 108, 83, 0.2);
+}
+
+/* Zone de prévisualisation d'image */
+.image-preview {
+  padding: 10px 15px;
+  border-top: 1px solid #146C53;
+  background-color: #f8f9fa;
+}
+
+.preview-container {
+  position: relative;
+  display: inline-block;
+  max-width: 150px;
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  border-radius: 8px;
+  border: 2px solid #146C53;
+  object-fit: cover;
+}
+
+.remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.remove-image:hover {
+  background: #c82333;
+}
+
+/* Images dans les messages */
+.message-image {
+  margin-bottom: 8px;
+}
+
+.attached-image {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.attached-image:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive - Mobile plein écran */
+@media (max-width: 768px) {
+  .chatbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    /* Animation spécifique pour mobile - slide depuis le bas */
+    animation: slideInMobile 0.4s ease-out;
+  }
+
+  /* Animation mobile - slide depuis le bas */
+  @keyframes slideInMobile {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .header {
+    padding: 20px 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #008E6F;
+    flex-shrink: 0;
+  }
+
+  .close-btn {
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  .messages {
+    flex: 1;
+    padding: 15px;
+    min-height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .input-zone {
+    padding: 15px;
+    border-top: 1px solid #146C53;
+    flex-shrink: 0;
+    gap: 10px;
+  }
+
+  .input-zone input {
+    padding: 12px;
+    font-size: 16px;
+    /* Évite le zoom sur iOS */
+    border-radius: 8px;
+  }
+
+  .image-btn {
+    padding: 10px 8px;
+    font-size: 18px;
+    border-radius: 8px;
+    background: transparent;
+    color: #146C53;
+  }
+
+  .image-btn:hover {
+    background: rgba(20, 108, 83, 0.1);
+  }
+
+  .send-btn {
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  /* Zone de prévisualisation sur mobile */
+  .image-preview {
+    padding: 10px 15px;
+  }
+
+  .preview-container {
+    max-width: 120px;
+  }
+
+  .preview-image {
+    max-height: 80px;
+  }
+
+  /* Images dans les messages sur mobile */
+  .attached-image {
+    max-width: 150px;
+    max-height: 120px;
+  }
+
+  /* Messages plus larges sur mobile */
+  .user-msg,
+  .bot-msg {
+    max-width: 85%;
+    padding: 12px 15px;
+  }
+
+  .user-msg {
+    border-radius: 18px 18px 8px 18px;
+  }
+
+  .bot-msg {
+    border-radius: 18px 18px 18px 8px;
+  }
 }

@@ -23,11 +23,11 @@ export class ChatService {
       'Content-Type': 'application/json'
     });
 
-    const body = { question: message };
-    console.log('Sending request:', body);
+    const body = { question : message };
+    console.log('[SERVICE] Sending request:', body);
 
     const request = this.http.post<Record<string, any>>(this.apiUrl, body, { headers })
-    console.log('Request sent:', request);
+    console.log('[SERVICE] Request sent:', request);
     return request;
   }
 }

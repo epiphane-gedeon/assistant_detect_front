@@ -1,3 +1,19 @@
+<!-- Routes principales -->
+<router-outlet></router-outlet>
+
+<!-- Bouton de test pour le formulaire -->
+<button (click)="testFormPopup()"
+    style="position: fixed; top: 10px; right: 10px; z-index: 9999; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px;">
+    Test Form Popup
+</button>
+
+<!-- Chatbot toujours visible -->
 <app-chat-button (clicked)="chatVisible = !chatVisible"></app-chat-button>
 
-<app-chatbox *ngIf="chatVisible" [visible]="chatVisible" (closed)="chatVisible = false"></app-chatbox>
+<app-chatbox [visible]="chatVisible" (closed)="chatVisible = false" (reopened)="onChatReopened()"></app-chatbox>
+
+<!-- Popup réutilisable -->
+<app-popup></app-popup>
+
+<!-- Form Popup réutilisable -->
+<app-form-popup></app-form-popup>

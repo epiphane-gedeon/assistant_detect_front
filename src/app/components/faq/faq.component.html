@@ -1,0 +1,93 @@
+<!-- Barre de navigation -->
+<div class="navbar">
+  <div class="menu-icon">☰</div>
+  <div class="nav-items">
+    <span class="nav-item active">Aide en ligne</span>
+    <span class="nav-item">Manuel</span>
+    <span class="nav-item">Support</span>
+  </div>
+</div>
+
+<!-- Contenu principal -->
+<div class="container">
+  <div class="header-section">
+    <h1 class="title">FAQ des erreurs sur PASSE</h1>
+    <button class="add-faq-btn" (click)="navigateToAddFaq()">
+      + Ajouter une FAQ
+    </button>
+  </div>
+
+  <!-- Boutons de test pour les popups (à retirer en production) -->
+  <div class="test-buttons" style="text-align: center; margin-bottom: 20px;">
+    <button class="test-btn" (click)="showErrorPopup()">Test Erreur</button>
+    <button class="test-btn" (click)="showCustomPopup()">Test Custom</button>
+    <button class="test-btn" (click)="showSuccessPopup()">Test Succès</button>
+    <button class="test-btn" (click)="showReportForm()">Test Formulaire Signalement</button>
+    <button class="test-btn" (click)="showCustomForm()">Test Formulaire Custom</button>
+    <button class="test-btn" style="background: #28a745; color: white;" (click)="testNotification()">🔔 Test
+      WebSocket</button>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader">
+    Chargement des FAQs...
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Liste des FAQs -->
+  <div class="faq-list" *ngIf="!loading && !error">
+    <div *ngFor="let faq of faqs; trackBy: trackByFaq" class="faq-item">
+      <div class="faq-question" (click)="toggleExpanded(faq.id)">
+        <span class="question-text">Q{{ faq.id }} : {{ faq.question }}</span>
+        <span class="arrow" [class.expanded]="isExpanded(faq.id)">▼</span>
+      </div>
+
+      <div class="faq-answer" [class.expanded]="isExpanded(faq.id)">
+        <div class="answer-content" [innerHTML]="faq.procede"></div>
+        <div class="answer-actions">
+          <button class="edit-btn" (click)="editFaq(faq, $event)" title="Modifier cette FAQ">
+            ✏️ Modifier
+          </button>
+          <button class="delete-btn" (click)="deleteFaq(faq, $event)" title="Supprimer cette FAQ">
+            🗑️ Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="pagination">
+      <div class="pagination-info">
+        Affichage de {{ (pagination.page - 1) * pagination.size + 1 }} à
+        {{ Math.min(pagination.page * pagination.size, pagination.total) }}
+        sur {{ pagination.total }} FAQs
+      </div>
+
+      <div class="pagination-controls">
+        <!-- Bouton Précédent -->
+        <button class="pagination-btn" [class.disabled]="!pagination.has_prev" (click)="previousPage()"
+          [disabled]="!pagination.has_prev">
+          ← Précédent
+        </button>
+
+        <!-- Numéros de pages -->
+        <div class="page-numbers">
+          <button *ngFor="let pageNum of getPageNumbers()" class="page-btn" [class.active]="pageNum === pagination.page"
+            (click)="goToPage(pageNum)">
+            {{ pageNum }}
+          </button>
+        </div>
+
+        <!-- Bouton Suivant -->
+        <button class="pagination-btn" [class.disabled]="!pagination.has_next" (click)="nextPage()"
+          [disabled]="!pagination.has_next">
+          Suivant →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,21 +14,45 @@
 </div> -->
 
 <!-- src/app/components/chatbox/chatbox.component.html -->
-<div class="chatbox" *ngIf="visible">
+<div class="chatbox chatbox-exclude-capture" *ngIf="isVisible">
   <div class="header">
     <span>Assistant</span>
     <button class="close-btn" (click)="close()">×</button>
   </div>
 
   <div class="messages">
-    <div *ngFor="let msg of messages" [ngClass]="msg.from === 'user' ? 'user-msg' : 'bot-msg'">
-      <div *ngIf="msg.from === 'user'">{{ msg.text }}</div>
-      <div *ngIf="msg.from === 'bot'" [innerHTML]="msg.text | markdown"></div>
+    <div *ngFor="let msg of messages" class="message-container" [ngClass]="msg.from === 'user' ? 'user' : 'bot'">
+      <div [ngClass]="msg.from === 'user' ? 'user-msg' : 'bot-msg'">
+        <!-- Afficher l'image si elle existe -->
+        <div *ngIf="msg.image" class="message-image">
+          <img [src]="msg.image" alt="Image jointe" class="attached-image">
+        </div>
+        <div *ngIf="msg.from === 'user'">{{ msg.text }}</div>
+        <div *ngIf="msg.from === 'bot'" [innerHTML]="msg.text | markdown"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone de prévisualisation de l'image -->
+  <div *ngIf="selectedImage" class="image-preview">
+    <div class="preview-container">
+      <img [src]="selectedImage" alt="Aperçu" class="preview-image">
+      <button class="remove-image" (click)="removeImage()">×</button>
     </div>
   </div>
 
   <div class="input-zone">
     <input type="text" [(ngModel)]="userInput" placeholder="Tapez votre message ici" (keydown.enter)="send()">
+    <button class="image-btn" (click)="triggerImageUpload()" title="Joindre une image">
+      📎
+    </button>
     <button class="send-btn" (click)="send()">➤</button>
+    <!-- Input file caché -->
+    <input #fileInput type="file" accept="image/*" (change)="onImageSelected($event)" style="display: none;">
   </div>
 </div>
+
+<!-- Popup de choix d'image -->
+<app-image-option-popup *ngIf="showImageOptionPopup" (screenCapture)="onScreenCapture()" (fileUpload)="onFileUpload()"
+  (cancel)="onCancelImageOption()">
+</app-image-option-popup>

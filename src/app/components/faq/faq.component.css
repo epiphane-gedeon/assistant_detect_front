@@ -1,0 +1,392 @@
+/* Barre de navigation */
+.navbar {
+  background: linear-gradient(135deg, #146C53 0%, #4A90E2 100%);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-icon {
+  font-size: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.nav-items {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-item {
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenu principal */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.add-faq-btn {
+  background: #146C53;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-faq-btn:hover {
+  background: #0f5a44;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(20, 108, 83, 0.3);
+}
+
+/* Boutons de test (à retirer en production) */
+.test-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.test-btn {
+  background: linear-gradient(135deg, #146C53 0%, #4A90E2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.test-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* États de chargement et erreur */
+.loader,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+}
+
+.error {
+  color: #e74c3c;
+  background-color: #fdf2f2;
+  border: 1px solid #e74c3c;
+  border-radius: 8px;
+}
+
+/* Liste des FAQs */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-item {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Question */
+.faq-question {
+  background: linear-gradient(135deg, #146C53 0%, #4A90E2 100%);
+  color: white;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background: linear-gradient(135deg, #0f5a42 0%, #3a7bc8 100%);
+}
+
+.question-text {
+  font-weight: 600;
+  font-size: 16px;
+  flex: 1;
+}
+
+.arrow {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.arrow.expanded {
+  transform: rotate(180deg);
+}
+
+/* Réponse */
+.faq-answer {
+  background-color: #f8f9fa;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.faq-answer.expanded {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+}
+
+.answer-content {
+  padding: 25px;
+  line-height: 1.6;
+  color: #333;
+  font-size: 15px;
+}
+
+.answer-actions {
+  padding: 0 25px 20px 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid #e9ecef;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+
+.edit-btn {
+  background: #146C53;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-btn:hover {
+  background: #0f5a44;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(20, 108, 83, 0.3);
+}
+
+.edit-btn:active {
+  transform: translateY(0);
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.delete-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .header-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .add-faq-btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .nav-items {
+    gap: 15px;
+  }
+
+  .nav-item {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .pagination-container {
+    padding: 20px 10px;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .page-numbers {
+    gap: 5px;
+  }
+
+  .pagination-btn,
+  .page-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* Boutons d'actions sur mobile */
+  .answer-actions {
+    padding: 0 15px 15px 15px;
+    padding-top: 10px;
+    gap: 8px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Pagination Styles */
+.pagination-container {
+  margin-top: 40px;
+  padding: 30px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.pagination-info {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pagination-btn {
+  background: linear-gradient(135deg, #146C53 0%, #4A90E2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(.disabled) {
+  background: linear-gradient(135deg, #0f5a42 0%, #3a7bc8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.page-btn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #146C53;
+  background: white;
+  color: #146C53;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-btn:hover {
+  background: #f0f8ff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, #146C53 0%, #4A90E2 100%);
+  color: white;
+  border-color: #146C53;
+  box-shadow: 0 2px 8px rgba(20, 108, 83, 0.3);
+}

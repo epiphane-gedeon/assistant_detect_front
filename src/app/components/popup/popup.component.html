@@ -1,0 +1,25 @@
+<!-- Overlay -->
+<div class="popup-overlay" *ngIf="popupConfig" (click)="closePopup()">
+
+  <!-- Modal Container -->
+  <div class="popup-container" (click)="$event.stopPropagation()">
+
+    <!-- Close Button -->
+    <button *ngIf="popupConfig.showCloseButton" class="close-button" (click)="closePopup()">
+      ×
+    </button>
+
+    <!-- Message -->
+    <div class="popup-message" [innerHTML]="popupConfig.message">
+    </div>
+
+    <!-- Buttons -->
+    <div class="popup-buttons">
+      <button *ngFor="let button of popupConfig.buttons" class="popup-btn" [class.primary]="button.primary"
+        (click)="executeAction(button.action)">
+        {{ button.text }}
+      </button>
+    </div>
+
+  </div>
+</div>
